@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const DEFAULT_PASS = 'password123'; // Hardcoded admin password
     const CERT_STORAGE_KEY = 'quickroute_certificates'; // Key for all certificates
 
+    // تم تغيير الثوابت لتمكين التوجيه باستخدام ./ (لضمان عمله على GitHub Pages)
+    const INDEX_PAGE = 'index.html';
     const SYSTEM_PAGE = 'create_page.html';
     const MANAGEMENT_PAGE = 'certificate_management.html';
     const CERTIFICATE_PAGE = 'certificate_view.html';
@@ -52,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** Redirects to the creation page with certificate data for editing. */
     window.editCertificate = function(username) {
-        window.location.href = `${SYSTEM_PAGE}?edit=${username}`;
+        // تم تصحيح المسار
+        window.location.href = `./${SYSTEM_PAGE}?edit=${username}`;
     }
 
     /** Looks up a certificate by student username and verifies the password. */
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.innerHTML = `
                 <h1 style="color: #ff4545;">لا توجد شهادة</h1>
                 <p style="font-size: 20px; color: #555;">الرجاء التأكد من صحة بيانات التحقق.</p>
-                <button class="logout-btn btn" style="margin-top: 40px;" onclick="window.location.href='certificate_lookup.html';">العودة لصفحة البحث</button>
+                <button class="logout-btn btn" style="margin-top: 40px;" onclick="window.location.href='./certificate_lookup.html';">العودة لصفحة البحث</button>
             `;
         }
     }
@@ -90,14 +93,16 @@ document.addEventListener('DOMContentLoaded', () => {
     /** Redirects admin pages based on login status. */
     function redirectIfNecessary() {
         const path = window.location.pathname;
-        const isLoginPage = path.endsWith('index.html') || path.endsWith('/');
+        const isLoginPage = path.endsWith(INDEX_PAGE) || path.endsWith('/');
         const isProtectedPage = path.endsWith(SYSTEM_PAGE) || path.endsWith(MANAGEMENT_PAGE);
 
         if (checkLoginStatus() && isLoginPage) {
-            window.location.href = SYSTEM_PAGE;
+            // تم تصحيح المسار
+            window.location.href = './' + SYSTEM_PAGE; 
         } else if (!checkLoginStatus() && isProtectedPage) {
             if (path.endsWith(SYSTEM_PAGE) || path.endsWith(MANAGEMENT_PAGE)) {
-                window.location.href = 'index.html';
+                // تم تصحيح المسار
+                window.location.href = './' + INDEX_PAGE;
             }
         }
     }
@@ -137,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Initialization and Event Handling ---
     
     // 1. Admin Login Page Logic (index.html)
-    if (loginButton && window.location.pathname.endsWith('index.html')) {
+    if (loginButton && window.location.pathname.endsWith(INDEX_PAGE)) {
         loginButton.addEventListener('click', () => {
             const usernameInput = document.querySelectorAll('input')[0];
             const passwordInput = document.querySelectorAll('input')[1];
@@ -145,7 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (usernameInput.value === DEFAULT_USER && passwordInput.value === DEFAULT_PASS) {
                 localStorage.setItem('isLoggedIn', 'true');
                 alert('تم تسجيل الدخول بنجاح! (الحساب الإداري)');
-                window.location.href = SYSTEM_PAGE;
+                // تم تصحيح المسار
+                window.location.href = './' + SYSTEM_PAGE;
             } else {
                 alert('خطأ في اسم المستخدم أو كلمة المرور.');
             }
@@ -215,7 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             saveCertificate(certData); // Save (or update) the certificate
             alert(`تم حفظ البيانات بنجاح للمستخدم: ${studentUsername}`);
-            window.location.href = MANAGEMENT_PAGE; // Redirect to management view after save
+            // تم تصحيح المسار
+            window.location.href = './' + MANAGEMENT_PAGE; // Redirect to management view after save
         });
     }
     
@@ -236,7 +243,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cert = lookupCertificate(username, password);
 
                 if (cert) {
-                    window.location.href = `${CERTIFICATE_PAGE}?key=${username}`;
+                    // تم تصحيح المسار
+                    window.location.href = `./${CERTIFICATE_PAGE}?key=${username}`;
                 } else {
                     alert('خطأ في اسم المستخدم أو كلمة المرور أو لا توجد شهادة مسجلة بهذا الاسم.');
                 }
@@ -280,11 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Logout Logic
     const logoutButton = document.querySelector('.logout-btn');
     if (logoutButton) {
-        logoutButton.addEventListener('click', () => {
-            localStorage.removeItem('isLoggedIn');
-            alert('تم تسجيل الخروج.');
-            window.location.href = 'index.html';
-        });
+        // تم تغيير الحدث لزر تسجيل الخروج في الصفحات الإدارية
+        if (window.location.pathname.endsWith(SYSTEM_PAGE) || window.location.pathname.endsWith(MANAGEMENT_PAGE)) {
+             logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('isLoggedIn');
+                alert('تم تسجيل الخروج.');
+                // تم تصحيح المسار
+                window.location.href = './' + INDEX_PAGE; 
+            });
+        }
+        // ملاحظة: زر "البحث عن شهادة أخرى" في certificate_view يستخدم 'window.location.href' مباشرة في HTML.
     }
 
     // Initial admin check for protected pages
