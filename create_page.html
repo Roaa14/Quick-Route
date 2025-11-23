@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>إنشاء صفحة / شهادة جديدة - QuickRoute</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top-buttons">
+        <button class="logout-btn btn">تسجيل خروج</button>
+        <button class="view-btn btn" onclick="window.location.href='certificate_management.html';">عرض الصفحات المحفوظة</button>
+    </div>
+
+    <h2>إنشاء صفحة أو شهادة رقمية جديدة</h2>
+    
+    <form id="creation-form">
+        <label>عنوان الصفحة / الشهادة</label>
+        <input type="text" id="cert-title-input" placeholder="مثال: شهادة بكالوريوس في علوم الحاسب">
+
+        <label>اسم الطالب / المستخدم المستهدف</label>
+        <input type="text" id="cert-recipient-input" placeholder="مثال: أحمد محمد علي">
+
+        <label>الدرجة العلمية / التخصص (اختياري)</label>
+        <input type="text" id="cert-degree-input" placeholder="مثال: بكالوريوس الهندسة">
+
+        <label>الجهة المانحة للشهادة / مصدر الصفحة</label>
+        <input type="text" id="cert-issuer-input" placeholder="مثال: جامعة القاهرة">
+
+        <label>تاريخ الإصدار / الإنشاء</label>
+        <input type="date" id="cert-date-input">
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+        <h2>بيانات التحقق (الخاصة بالطالب)</h2>
+
+        <label>اسم مستخدم الطالب (فريد)</label>
+        <input type="text" id="cert-username-input" required placeholder="يستخدم للتحقق الخاص، مثال: ahmed.ali2025">
+
+        <label>كلمة مرور الطالب</label>
+        <input type="password" id="cert-password-input" required placeholder="كلمة مرور خاصة بهذه الشهادة">
+
+        <button type="submit" id="create-submit-btn" class="submit-btn">إنشاء وحفظ الصفحة ورمز QR</button>
+    </form>
+
+</div>
+
+</body>
+</html>

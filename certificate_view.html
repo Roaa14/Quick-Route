@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عرض الشهادة الرقمية - QuickRoute</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+</head>
+
+<body class="cert-body">
+    <div class="certificate-container">
+        <h1>الشهادة الرقمية المعتمدة</h1>
+        <h3>منصة QuickRoute للتوثيق الرقمي</h3>
+        
+        <div class="cert-info">
+            <span class="cert-label">عنوان الشهادة:</span> <span id="cert-title">---</span>
+        </div>
+        
+        <div class="cert-info">
+            <span class="cert-label">المستفيد:</span> <span id="cert-recipient">---</span>
+        </div>
+        
+        <div class="cert-info">
+            <span class="cert-label">الجهة المانحة:</span> <span id="cert-issuer">---</span>
+        </div>
+
+        <div class="cert-info">
+            <span class="cert-label">التخصص/الدرجة:</span> <span id="cert-degree">---</span>
+        </div>
+        
+        <div class="cert-info cert-info-last">
+            <span class="cert-label">تاريخ الإصدار:</span> <span id="cert-date">---</span>
+        </div>
+        <h3 style="margin-top: 50px;">رمز التحقق السريع (QR Code)</h3>
+        
+        <div id="qr-code-display">
+            
+
+[Image of QR code placeholder]
+
+        </div>
+        
+        <p class="verification-text">امسح الرمز ضوئياً للتحقق الفوري من صحة هذه الشهادة.</p>
+
+        <button class="logout-btn btn" style="margin-top: 40px;" onclick="window.location.href='certificate_lookup.html';">البحث عن شهادة أخرى</button>
+    </div>
+</body>
+</html>
